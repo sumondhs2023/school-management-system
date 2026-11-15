@@ -62,7 +62,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   const message = document.getElementById("message");
 
   try {
-    const response = await fetch("/api/admin/Login", {
+   const response = await fetch("/api/admin/login", { 
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({username, password})
