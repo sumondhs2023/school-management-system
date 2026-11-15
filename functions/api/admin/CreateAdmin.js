@@ -67,7 +67,7 @@ export async function onRequestPost({ request, env }) {
       .map(b => b.toString(16).padStart(2, "0"))
       .join("");
 
-    const iterations = 210000;
+    const iterations = 100000;
 
     const hash = await hashPassword(
       password,
