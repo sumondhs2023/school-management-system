@@ -71,9 +71,8 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const data = await response.json();
 
     if (data.success) {
-      message.style.color = "green";
-      message.textContent = "লগইন সফল হয়েছে।";
-    } else {
+  window.location.href = "/dashboard.html";
+} else {
       message.textContent = data.message || "লগইন ব্যর্থ হয়েছে।";
     }
   } catch {
