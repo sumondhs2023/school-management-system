@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Admin</title>
+</head>
+<body>
+<h2>প্রথম Admin তৈরি করুন</h2>
+
+<input id="key" type="password" placeholder="Setup Key"><br><br>
+<input id="username" placeholder="Admin Username"><br><br>
+<input id="password" type="password" placeholder="Admin Password"><br><br>
+
+<button onclick="createAdmin()">Admin তৈরি করুন</button>
+<p id="message"></p>
+
+<script>
+async function createAdmin() {
+  const key = document.getElementById("key").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("message");
+
+  message.textContent = "অপেক্ষা করুন...";
+
+  try {
+    const response = await fetch("/api/admin/CreateAdmin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-setup-key": key
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    const result = await response.json();
+    message.textContent = result.message || "সমাপ্ত";
+  } catch (error) {
+    message.textContent = "সংযোগে সমস্যা হয়েছে।";
+  }
+}
+</script>
+</body>
+</html>
