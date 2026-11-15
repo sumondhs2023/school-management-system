@@ -85,5 +85,26 @@ button {
 </div>
 
 </div>
+  <script>
+fetch("/api/admin/verify", {
+  method: "GET",
+  credentials: "same-origin"
+})
+.then(response => {
+  if (!response.ok) {
+    window.location.href = "/admin.html";
+    return null;
+  }
+  return response.json();
+})
+.then(data => {
+  if (data && !data.success) {
+    window.location.href = "/admin.html";
+  }
+})
+.catch(() => {
+  window.location.href = "/admin.html";
+});
+</script>
 </body>
 </html>
