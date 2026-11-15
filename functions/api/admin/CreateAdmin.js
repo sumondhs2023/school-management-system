@@ -90,7 +90,7 @@ export async function onRequestPost({ request, env }) {
   } catch (error) {
     return Response.json({
       success: false,
-      message: "সার্ভারে সমস্যা হয়েছে।"
+      message: String(error)
     }, { status: 500 });
   }
 }
