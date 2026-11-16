@@ -37,12 +37,21 @@ button {
   padding: 10px 18px;
   border-radius: 5px;
 }
-</style>
-  <button onclick="logoutAdmin()" style="background:#dc2626;">
-লগআউট
-</button>
-</head>
-<body>
+<script>
+async function logoutAdmin() {
+  try {
+    await fetch("/api/admin/logout", {
+      method: "POST",
+      credentials: "include"
+    });
+
+    window.location.href = "/admin-login.html";
+  } catch (error) {
+    alert("Logout করতে সমস্যা হয়েছে");
+  }
+}
+</script>
+  <body>
 
 <header>
 <h2>প্রশাসনিক ড্যাশবোর্ড</h2>
