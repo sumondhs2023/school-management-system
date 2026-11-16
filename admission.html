@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>অনলাইন ভর্তি আবেদন</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef3f8;font-family:Arial,sans-serif;color:#243247}
+header{background:#126b49;color:white;text-align:center;padding:22px 12px}
+header h2{margin:0 0 8px}
+header p{margin:0;font-size:14px}
+.container{max-width:750px;margin:18px auto;padding:15px}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:16px;box-shadow:0 2px 10px #00000012}
+h3{color:#126b49;border-bottom:1px solid #ddd;padding-bottom:10px;margin-top:0}
+label{display:block;font-weight:bold;margin:13px 0 6px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ccd5df;border-radius:7px;font-size:15px;background:white}
+textarea{min-height:75px}
+.note{font-size:13px;color:#64748b}
+button{width:100%;padding:14px;background:#126b49;color:white;border:0;border-radius:8px;font-size:17px;font-weight:bold;margin-top:15px}
+button:active{background:#0c5037}
+.required{color:red}
+</style>
+</head>
+<body>
+
+<header>
+<h2>অনলাইন ভর্তি আবেদন</h2>
+<p>শিক্ষার্থী ভর্তি আবেদন ফরম</p>
+</header>
+
+<div class="container">
+<form action="/api/admission/submit" method="POST" enctype="multipart/form-data">
+
+<div class="card">
+<h3>১. ভর্তি সংক্রান্ত তথ্য</h3>
+
+<label>শিক্ষাবর্ষ <span class="required">*</span></label>
+<select name="academic_year" required>
+<option value="">শিক্ষাবর্ষ নির্বাচন করুন</option>
+<option value="2027">২০২৭</option>
+<option value="2028">২০২৮</option>
+</select>
+
+<label>যে শ্রেণিতে ভর্তি হতে চাও <span class="required">*</span></label>
+<select name="class" id="classSelect" required>
+<option value="">শ্রেণি নির্বাচন করুন</option>
+<option value="6">ষষ্ঠ শ্রেণি</option>
+<option value="7">সপ্তম শ্রেণি</option>
+<option value="8">অষ্টম শ্রেণি</option>
+<option value="9">নবম শ্রেণি</option>
+</select>
+
+<div id="groupBox" style="display:none">
+<label>বিভাগ নির্বাচন করুন <span class="required">*</span></label>
+<select name="group" id="groupSelect">
+<option value="">বিভাগ নির্বাচন করুন</option>
+<option value="Science">বিজ্ঞান</option>
+<option value="Arts">মানবিক</option>
+<option value="Commerce">ব্যবসায় শিক্ষা</option>
+</select>
+</div>
+</div>
+
+<div class="card">
+<h3>২. শিক্ষার্থীর ব্যক্তিগত তথ্য</h3>
+
+<label>শিক্ষার্থীর পূর্ণ নাম (বাংলা) <span class="required">*</span></label>
+<input name="student_name_bn" required>
+
+<label>শিক্ষার্থীর নাম (ইংরেজি)</label>
+<input name="student_name_en">
+
+<label>জন্মতারিখ <span class="required">*</span></label>
+<input type="date" name="dob" required>
+
+<label>জন্মনিবন্ধন নম্বর <span class="required">*</span></label>
+<input name="birth_certificate_no" required>
+
+<label>লিঙ্গ <span class="required">*</span></label>
+<select name="gender" required>
+<option value="">নির্বাচন করুন</option>
+<option value="ছেলে">ছেলে</option>
+<option value="মেয়ে">মেয়ে</option>
+<option value="অন্যান্য">অন্যান্য</option>
+</select>
+
+<label>রক্তের গ্রুপ</label>
+<select name="blood_group">
+<option value="">জানা না থাকলে ফাঁকা রাখুন</option>
+<option>A+</option><option>A-</option>
+<option>B+</option><option>B-</option>
+<option>AB+</option><option>AB-</option>
+<option>O+</option><option>O-</option>
+</select>
+
+<label>শিক্ষার্থীর ছবি <span class="required">*</span></label>
+<input type="file" name="student_photo" accept="image/*" required>
+<p class="note">সাম্প্রতিক পাসপোর্ট সাইজের ছবি দিন।</p>
+</div>
+
+<div class="card">
+<h3>৩. পিতা-মাতার তথ্য</h3>
+
+<label>পিতার নাম <span class="required">*</span></label>
+<input name="father_name" required>
+
+<label>পিতার পেশা</label>
+<input name="father_occupation">
+
+<label>পিতার মোবাইল নম্বর <span class="required">*</span></label>
+<input type="tel" name="father_phone" required>
+
+<label>মাতার নাম <span class="required">*</span></label>
+<input name="mother_name" required>
+
+<label>মাতার পেশা</label>
+<input name="mother_occupation">
+
+<label>মাতার মোবাইল নম্বর</label>
+<input type="tel" name="mother_phone">
+</div>
+
+<div class="card">
+<h3>৪. অভিভাবকের তথ্য</h3>
+
+<label>অভিভাবকের নাম</label>
+<input name="guardian_name">
+
+<label>শিক্ষার্থীর সঙ্গে সম্পর্ক</label>
+<input name="guardian_relation">
+
+<label>অভিভাবকের মোবাইল নম্বর</label>
+<input type="tel" name="guardian_phone">
+</div>
+
+<div class="card">
+<h3>৫. ঠিকানা</h3>
+
+<label>বর্তমান ঠিকানা <span class="required">*</span></label>
+<textarea name="present_address" required></textarea>
+
+<label>স্থায়ী ঠিকানা <span class="required">*</span></label>
+<textarea name="permanent_address" required></textarea>
+
+<label>গ্রাম / মহল্লা</label>
+<input name="village">
+
+<label>ডাকঘর</label>
+<input name="post_office">
+
+<label>উপজেলা</label>
+<input name="upazila">
+
+<label>জেলা</label>
+<input name="district">
+</div>
+
+<div class="card">
+<h3>৬. পূর্ববর্তী শিক্ষাপ্রতিষ্ঠানের তথ্য</h3>
+
+<label>আগের স্কুলের নাম <span class="required">*</span></label>
+<input name="previous_school" required>
+
+<label>সর্বশেষ কোন শ্রেণিতে পড়েছে <span class="required">*</span></label>
+<select name="previous_class" required>
+<option value="">শ্রেণি নির্বাচন করুন</option>
+<option value="5">পঞ্চম</option>
+<option value="6">ষষ্ঠ</option>
+<option value="7">সপ্তম</option>
+<option value="8">অষ্টম</option>
+<option value="9">নবম</option>
+</select>
+
+<label>সর্বশেষ পরীক্ষার নাম</label>
+<input name="last_exam">
+
+<label>পরীক্ষার ফলাফল / জিপিএ</label>
+<input name="last_result">
+
+<label>আগের স্কুলের ঠিকানা</label>
+<textarea name="previous_school_address"></textarea>
+</div>
+
+<div class="card">
+<h3>৭. প্রয়োজনীয় কাগজপত্রের স্ক্যান কপি</h3>
+<p class="note">প্রতিটি কাগজের পরিষ্কার ছবি অথবা PDF আপলোড করুন।</p>
+
+<label>জন্মনিবন্ধন সনদের কপি <span class="required">*</span></label>
+<input type="file" name="birth_certificate_file" accept="image/*,.pdf" required>
+
+<label>সর্বশেষ পরীক্ষার মার্কশিট / নম্বরপত্র <span class="required">*</span></label>
+<input type="file" name="last_marksheet" accept="image/*,.pdf" required>
+
+<label>পরীক্ষার সনদপত্র (যদি থাকে)</label>
+<input type="file" name="exam_certificate" accept="image/*,.pdf">
+
+<label>অন্যান্য পরীক্ষার মার্কশিট / সনদপত্র</label>
+<input type="file" name="other_certificates" accept="image/*,.pdf" multiple>
+
+<label>পূর্বের স্কুলের ছাড়পত্র (যদি থাকে)</label>
+<input type="file" name="transfer_certificate" accept="image/*,.pdf">
+</div>
+
+<div class="card">
+<h3>৮. আবেদনকারীর ঘোষণা</h3>
+<label style="font-weight:normal">
+<input type="checkbox" name="information_correct" value="yes" required style="width:auto">
+আমি ঘোষণা করছি যে, আবেদন ফরমে দেওয়া সব তথ্য সঠিক।
+</label>
+
+<label style="font-weight:normal">
+<input type="checkbox" name="guardian_consent" value="yes" required style="width:auto">
+আমি অভিভাবকের সম্মতি নিয়ে আবেদন জমা দিচ্ছি।
+</label>
+
+<p class="note">আবেদন জমা দেওয়ার পর আবেদনকারীর কপি ও আবেদন নম্বর দেওয়া হবে। এটি চূড়ান্ত ভর্তি নিশ্চয়তা নয়।</p>
+
+<button type="submit">আবেদন জমা দিন</button>
+</div>
+
+</form>
+</div>
+
+<script>
+const classSelect = document.getElementById("classSelect");
+const groupBox = document.getElementById("groupBox");
+const groupSelect = document.getElementById("groupSelect");
+
+classSelect.addEventListener("change", function(){
+  if(this.value === "9"){
+    groupBox.style.display = "block";
+    groupSelect.required = true;
+  } else {
+    groupBox.style.display = "none";
+    groupSelect.required = false;
+    groupSelect.value = "";
+  }
+});
+</script>
+
+</body>
+</html>
