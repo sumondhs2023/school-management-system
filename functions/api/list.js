@@ -61,15 +61,9 @@ export async function onRequestGet({ request, env }) {
     }
 
     const result = await env.DB.prepare(`
-      SELECT
-        application_id,
-        academic_year,
-        class,
-        group_name,
-        student_name,
-        application_data,
-        documents,
-        status
+      SELECT application_id, academic_year, class,
+      group_name, student_name, application_data,
+      documents, status
       FROM admissions
       ORDER BY rowid DESC
       LIMIT 200
