@@ -12,7 +12,7 @@ export async function onRequestGet({ request, env }) {
 
     if (!match || !env.SESSION_SECRET) {
       return Response.json(
-        { success: false, message: "অনুমতি নেই। আগে লগইন করুন।" },
+        { success: false, message: "আগে অ্যাডমিন লগইন করুন।" },
         { status: 401 }
       );
     }
@@ -47,14 +47,26 @@ export async function onRequestGet({ request, env }) {
       throw new Error("Expired session");
     }
 
+    if (!env.DB) {
+      throw new Error("Database not connected");
+    }
+
+    const result = await env.DB.prepare(`
+      SELECT application_id, academic_year, class,
+             group_name, student_name, status
+      FROM admissions
+      ORDER BY rowid DESC
+      LIMIT 200
+    `).all();
+
     return Response.json({
       success: true,
-      username: data.username
+      applications: result.results || []
     });
 
-  } catch {
+  } catch (error) {
     return Response.json(
-      { success: false, message: "সেশন সঠিক নয়। আবার লগইন করুন।" },
+      { success: false, message: "তথ্য পাওয়া যায়নি অথবা লগইন সঠিক নয়।" },
       { status: 401 }
     );
   }
